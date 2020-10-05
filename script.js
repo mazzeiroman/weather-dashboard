@@ -63,10 +63,25 @@ $(document).on('click', '.searchBtn', function(event) {
     $("#hum").text("Humidity: " + response.main.humidity + " %");
     $("#wind").text("Wind Speed: " + response.wind.speed+ " MPH");
 
+     var lon = response.coord.lon;
+     var lat = response.coord.lat;
+     var queryURLUV = "http://api.openweathermap.org/data/2.5/uvi?lat="+ lat+"&lon="+ lon+"&appid="+APIKey;
+
+     $.ajax({
+        url: queryURLUV,
+        method: "GET"
+      })
+      .then(function(responseuv) {
+          console.log(responseuv.value)
+     $("#uv").text("UV Index: " + responseuv.value);
+      })
+
       // Log the data in the console as well
       console.log("Wind Speed: " + response.wind.speed);
       console.log("Humidity: " + response.main.humidity);
       console.log("Temperature (F): " + tempF);
+    //   console.log(queryURLUV)
+      
     })
 
 })
