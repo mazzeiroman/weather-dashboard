@@ -1,5 +1,7 @@
 var APIKey = "e17e89ad29a637df3767ab03ebde55a4";
+var usersArray = JSON.parse(localStorage.getItem("usersInput")) || [];
 
+console.log(usersArray)
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -16,11 +18,12 @@ var fiveDays = $(".fiveDays")
 
 for (var i=0; i<5; i++){
 var newDivCol2 = $("<div>" + "</div>");
-newDivCol2.addClass("col-md-2 container alert-primary");
+//col-md-2 inside newDivCol2.addClass("card text-white bg-primary mb-3");
+newDivCol2.addClass("card text-white bg-primary mb-3");
 newDivCol2.attr("id","day"+[i+1])
 
  var newDivUl = $("<ul>" +"</ul>");
- var newDivLi1 = $("<li>" +"</li>");
+ var newDivLi1 = $("<p>" +"</p>");
  newDivLi1.attr("id","date"+[i+1]);
  var newDivIcon = $("<img/>");
 newDivIcon.attr("id","icon"+[i+1])
@@ -49,10 +52,22 @@ $(document).on('click', '.searchBtn', function(event) {
    var city = $("input").val();
     var queryURL ="http://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=" + APIKey; 
 
-    var newDivRow = $("<div>" +city +"</div>");
-    newDivRow.addClass("row alert alert-warning")
-    $(".col-md-4").append(newDivRow);
+    var usersInput =city;
+    
+      console.log(usersArray);
+      usersArray.push(usersInput);
+      localStorage.setItem('usersInput', JSON.stringify(usersArray));
   
+     var revArr = usersArray.reverse();
+     console.log(revArr);
+
+     for (i=0; i< revArr.length; i++){
+    var newDivRow = $("<div>" +revArr[i] +"</div>");
+    // newDivRow.addClass("row alert alert-warning")
+    // $(".col-md-4").append(newDivRow);
+     }
+     newDivRow.addClass("row alert alert-warning")
+    $(".citiesLi").append(newDivRow);
   // Here we run our AJAX call to the OpenWeatherMap API
   $.ajax({
     url: queryURL,
@@ -128,59 +143,18 @@ $(document).on('click', '.searchBtn', function(event) {
 
     console.log(responseF.daily[i].weather[0].icon)
     var daysIcon = responseF.daily[i].weather[0].icon;
+    var temper = responseF.daily[i+1].temp.day
 
      $("#date"+[i+1]).html(date.toString().slice(4,15))
      $("#icon"+[i+1]).attr("src", "https://openweathermap.org/img/wn/"+daysIcon+"@2x.png")
      $("#hum"+[i+1]).html(responseF.daily[i+1].humidity+"%")
-     $("#temp"+[i+1]).html(responseF.daily[i+1].temp.day)
+     $("#temp"+[i+1]).html(Math.floor(temper) + " ℉ ")
   }
 
       })
+
+    
     })
-
-    // var unix = responseF.daily[i+1].dt;
-    // var date =new Date(unix * 1000);
-    // console.log(date.toString().slice(4,15) )
-    // console.log(date.getMonth()+ "-"+date.getFullYear()+ "-"+date.getDay())
-
-    // var queryURLFiveDay = "http://api.openweathermap.org/data/2.5/forecast?q="+ city+"&appid="+APIKey;
-    // console.log(queryURLFiveDay)
-
-    // $.ajax({
-    //     url: queryURLFiveDay,
-    //     method: "GET"
-    //   })
-    //   .then(function(responseFiveDay) {
-        
-
-    //         $("#date1").append(responseFiveDay.list[2].dt_txt)
-    //         $("#hum1").append("humidity: "+ responseFiveDay.list[2].main.humidity +" %")
-    //         $("#temp1").append(Math.floor( (responseFiveDay.list[2].main.temp - 273.15) * 1.80 + 32))
-
-    //         $("#day2").append("<p>" + responseFiveDay.list[10].dt_txt + "</p>")
-    //         $("#day2").append("<p>" +"humidity: "+ responseFiveDay.list[10].main.humidity + " %"+ "</p>")
-    //         $("#day2").append("<p>" + Math.floor((responseFiveDay.list[10].main.temp - 273.15) * 1.80 + 32) + "</p>")
-
-    //         $("#day3").append("<p>" + responseFiveDay.list[18].dt_txt + "</p>")
-    //         $("#day3").append("<p>" +"humidity: "+ responseFiveDay.list[18].main.humidity + " %"+ "</p>")
-    //         $("#day3").append("<p>" + Math.floor((responseFiveDay.list[18].main.temp - 273.15) * 1.80 + 32)+ "</p>")
-
-    //         $("#day4").append("<p>" + responseFiveDay.list[26].dt_txt + "</p>")
-    //         $("#day4").append("<p>" +"humidity: "+ responseFiveDay.list[26].main.humidity +" %"+  "</p>")
-    //         $("#day4").append("<p>" + Math.floor((responseFiveDay.list[26].main.temp - 273.15) * 1.80 + 32) + "</p>")
-
-    //         $("#day5").append("<p>" + responseFiveDay.list[34].dt_txt + "</p>")
-    //         $("#day5").append("<p>" +"humidity: "+ responseFiveDay.list[34].main.humidity +" %"+  "</p>")
-    //         $("#day5").append("<p>" + Math.floor((responseFiveDay.list[34].main.temp - 273.15) * 1.80 + 32)+ "</p>")
-
-    //       console.log(responseFiveDay.list[2].dt_txt) 
-    //       console.log(responseFiveDay.list[2].main.humidity)
-    //       console.log(responseFiveDay.list[2].main.temp)
-          
-    // 2 10 18 26 34
-
-     
-    //   })
 
 })
 
