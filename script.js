@@ -22,12 +22,15 @@ newDivCol2.attr("id","day"+[i+1])
  var newDivUl = $("<ul>" +"</ul>");
  var newDivLi1 = $("<li>" +"</li>");
  newDivLi1.attr("id","date"+[i+1]);
+ var newDivIcon = $("<img/>");
+newDivIcon.attr("id","icon"+[i+1])
  var newDivLi2 = $("<li>" +"</li>");
  newDivLi2.attr("id","temp"+[i+1]);
  var newDivLi3 = $("<li>" +"</li>");
  newDivLi3.attr("id","hum"+[i+1]);
 
  newDivUl.append(newDivLi1)
+ newDivUl.append(newDivIcon)
  newDivUl.append(newDivLi2)
  newDivUl.append(newDivLi3)
  newDivCol2.append(newDivUl)
@@ -123,7 +126,11 @@ $(document).on('click', '.searchBtn', function(event) {
     var date =new Date(unix * 1000);
     console.log(date.toString().slice(4,15) )
 
+    console.log(responseF.daily[i].weather[0].icon)
+    var daysIcon = responseF.daily[i].weather[0].icon;
+
      $("#date"+[i+1]).html(date.toString().slice(4,15))
+     $("#icon"+[i+1]).attr("src", "https://openweathermap.org/img/wn/"+daysIcon+"@2x.png")
      $("#hum"+[i+1]).html(responseF.daily[i+1].humidity+"%")
      $("#temp"+[i+1]).html(responseF.daily[i+1].temp.day)
   }
