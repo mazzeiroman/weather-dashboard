@@ -63,7 +63,9 @@ $(document).on('click', '.searchBtn', function(event) {
 
       // Log the resulting object
       console.log(response);
-      
+      console.log(response.weather[0].icon);
+      var titleImg = response.weather[0].icon;
+
       // Convert the temp to fahrenheit
       var tempF = (response.main.temp - 273.15) * 1.80 + 32;
 
@@ -73,7 +75,8 @@ $(document).on('click', '.searchBtn', function(event) {
 
 
       // Transfer content to HTML
-    $(".displayC").text(city + " ("+today+")");
+    $(".displayC").children("span").text(city + " ("+today+")");
+    $(".displayC").children("img").attr("src", "https://openweathermap.org/img/wn/"+titleImg+"@2x.png")
     $("#temp").text("Temperature: " + Math.floor(tempF)+" ℉ ");
     $("#hum").text("Humidity: " + response.main.humidity + " %");
     $("#wind").text("Wind Speed: " + response.wind.speed+ " MPH");
@@ -98,19 +101,20 @@ $(document).on('click', '.searchBtn', function(event) {
       .then(function(responseF) {
       console.log(responseF)
       console.log(responseF.current.uvi)
-      $("#uv").text("UV Index: " + responseF.current.uvi);
+      var uvEl =$("#uv").children("span");
+      uvEl.text(" "+ responseF.current.uvi);
      
       var uvi = responseF.current.uvi;
         if (uvi <= 2){
-        $("#uv").addClass("green") 
+            uvEl.addClass("green") 
      } else if (uvi>2 && uvi<=5){
-        $("#uv").addClass("yellow") 
+        uvEl.addClass("yellow") 
      } else if (uvi>5 && uvi<=7){
-        $("#uv").addClass("orange") 
+        uvEl.addClass("orange") 
      } else if (uvi>7 && uvi<=10){
-        $("#uv").addClass("red") 
+        uvEl.addClass("red") 
      } else {
-        $("#uv").addClass("purple") 
+        uvEl.addClass("purple") 
      }
 
   for (var i=0; i<=5; i++) {
