@@ -1,6 +1,7 @@
 var APIKey = "e17e89ad29a637df3767ab03ebde55a4";
 var usersArray = JSON.parse(localStorage.getItem("usersInput")) || [];
 
+
 console.log(usersArray)
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
@@ -50,7 +51,7 @@ newDivIcon.attr("id","icon"+[i+1])
 $(document).on('click', '.searchBtn', function(event) {
     event.preventDefault();  
   
-   var city = $("input").val() || city1;
+   var city = $("input").val();
    console.log(city)
     var queryURL ="https://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=" + APIKey; 
 
@@ -71,14 +72,14 @@ $(document).on('click', '.searchBtn', function(event) {
 
 
      $(".citiesLi").empty()
-     var newInput = $(".lastCity")
+    //  var newInput = $(".lastCity")
      // appending new city to the DOM
      for (i=0; i< revArr.length; i++){
     var newDivRow = $("<div>" +revArr[i] +"</div>");
     newDivRow.addClass("row alert alert-warning cityClick")
     newDivRow.attr("id","cityClick"+[i])
-    newInput.val(usersArray[i])
-    console.log(usersArray[i])
+    // newInput.val(usersArray[i])
+    // console.log(usersArray[i])
     // $(".citiesLi").remove(newDivRow)
     $(".citiesLi").append(newDivRow);
 
@@ -89,6 +90,7 @@ $(document).on('click', '.searchBtn', function(event) {
     
         city1 = $(this).text();
         console.log(city1)
+        
      
      });
     
