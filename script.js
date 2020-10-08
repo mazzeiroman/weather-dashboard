@@ -67,12 +67,14 @@ $(document).on('click', '.searchBtn', function(event) {
      var revArr = usersArray.reverse();
      console.log(revArr);
     
+
+     $(".citiesLi").empty()
      // appending new city to the DOM
      for (i=0; i< revArr.length; i++){
     var newDivRow = $("<div>" +revArr[i] +"</div>");
     newDivRow.addClass("row alert alert-warning")
-    // $(".col-md-4").remove(newDivRow)
-    $(".col-md-4").append(newDivRow);
+    // $(".citiesLi").remove(newDivRow)
+    $(".citiesLi").append(newDivRow);
      }
     //  newDivRow.addClass("row alert alert-warning")
     // $(".citiesLi").append(newDivRow);
