@@ -19,7 +19,7 @@ README.md
 ## Link to the deployed website
   https://mazzeiroman.github.io/weather-dashboard/
 
-![](images/jsquiz.jpgg)
+![](images/deployed.jpg)
 
 ## Credits
 
