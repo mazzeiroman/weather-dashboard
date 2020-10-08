@@ -50,7 +50,7 @@ $(document).on('click', '.searchBtn', function(event) {
     event.preventDefault();  
   
    var city = $("input").val();
-    var queryURL ="http://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=" + APIKey; 
+    var queryURL ="https://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=" + APIKey; 
 
     var usersInput =city;
     
@@ -61,13 +61,16 @@ $(document).on('click', '.searchBtn', function(event) {
      var revArr = usersArray.reverse();
      console.log(revArr);
 
+     // appending new 
      for (i=0; i< revArr.length; i++){
     var newDivRow = $("<div>" +revArr[i] +"</div>");
-    // newDivRow.addClass("row alert alert-warning")
-    // $(".col-md-4").append(newDivRow);
+    newDivRow.addClass("row alert alert-warning")
+    $(".col-md-4").append(newDivRow);
      }
-     newDivRow.addClass("row alert alert-warning")
-    $(".citiesLi").append(newDivRow);
+    //  newDivRow.addClass("row alert alert-warning")
+    // $(".citiesLi").append(newDivRow);
+
+
   // Here we run our AJAX call to the OpenWeatherMap API
   $.ajax({
     url: queryURL,
