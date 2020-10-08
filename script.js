@@ -12,12 +12,12 @@ today = mm + '/' + dd + '/' + yyyy;
 // console.log(today)
 
 var usersArray = JSON.parse(localStorage.getItem("usersInput")) || [];
-var city1 = "";
+var lastCity= usersArray[usersArray.length-1]
 var fiveDays = $(".fiveDays")
  fiveDays.addClass("row");
 
 
-console.log(city1)
+
 for (var i=0; i<5; i++){
 var newDivCol2 = $("<div>" + "</div>");
 //col-md-2 inside newDivCol2.addClass("card text-white bg-primary mb-3");
@@ -45,8 +45,17 @@ newDivIcon.attr("id","icon"+[i+1])
 
 
   fiveDays.append(newDivCol2);
+
 }
 
+if(lastCity){
+    searchWeather(lastCity)
+    }
+$(document).on("load",function(event) {
+    event.preventDefault(); 
+    var cityName = usersArray[0];
+    searchWeather(cityName)
+})
 
 $(document).on('click', '.searchBtn', function(event) {
     event.preventDefault(); 
