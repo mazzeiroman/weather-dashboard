@@ -11,7 +11,7 @@ today = mm + '/' + dd + '/' + yyyy;
 // console.log(today)
 
 var usersArray = JSON.parse(localStorage.getItem("usersInput")) || [];
-
+var city1 = "";
 var fiveDays = $(".fiveDays")
  fiveDays.addClass("row");
 
@@ -72,14 +72,34 @@ $(document).on('click', '.searchBtn', function(event) {
      // appending new city to the DOM
      for (i=0; i< revArr.length; i++){
     var newDivRow = $("<div>" +revArr[i] +"</div>");
-    newDivRow.addClass("row alert alert-warning")
+    newDivRow.addClass("row alert alert-warning cityClick")
+    newDivRow.attr("id","cityClick"+[i])
     // $(".citiesLi").remove(newDivRow)
     $(".citiesLi").append(newDivRow);
+
      }
-    //  newDivRow.addClass("row alert alert-warning")
-    // $(".citiesLi").append(newDivRow);
-
-
+    
+     $(document).on('click', '.cityClick', function(event) {
+        event.preventDefault();  
+    
+        city = $(this).text();
+      
+       return(city);
+        // console.log($(col1).val());
+        // console.log(usersArray)
+       
+     
+     });
+    
+//      $(document).on('click', '.cityClick', function(event) {
+//         event.preventDefault();  
+//     console.log("the on click function is working")
+//         console.log(".cityClick"+[i])
+//      var city2 = $(".cityClick"+[i]).text()
+//     console.log(city2)
+    
+// })
+     
   // Here we run our AJAX call to the OpenWeatherMap API
   $.ajax({
     url: queryURL,
@@ -168,6 +188,5 @@ $(document).on('click', '.searchBtn', function(event) {
 
     
     })
-
 })
 
