@@ -121,6 +121,7 @@ $(document).on('click', '.searchBtn', function(event) {
       console.log(responseF.current.uvi)
       var uvEl =$("#uv").children("span");
       uvEl.text(" "+ responseF.current.uvi);
+      uvEl.removeAttr("class")
      
       var uvi = responseF.current.uvi;
         if (uvi <= 2){
