@@ -49,10 +49,24 @@ newDivIcon.attr("id","icon"+[i+1])
 
 
 $(document).on('click', '.searchBtn', function(event) {
+    event.preventDefault(); 
+    var cityName = $("input").val();
+    searchWeather(cityName)
+})
+
+$(document).on('click', '.cityClick', function(event) {
     event.preventDefault();  
-  
-   var city = $("input").val();
-   console.log(city)
+
+    var cityNameLi = $(this).text();
+    console.log($(this).text())
+    searchWeather(cityNameLi)
+ 
+ });
+
+  function searchWeather(city) {
+//    var city = $("input").val();
+
+//    console.log(city)
     var queryURL ="https://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=" + APIKey; 
 
     var usersInput =city;
@@ -72,36 +86,25 @@ $(document).on('click', '.searchBtn', function(event) {
 
 
      $(".citiesLi").empty()
-    //  var newInput = $(".lastCity")
+    
      // appending new city to the DOM
      for (i=0; i< revArr.length; i++){
     var newDivRow = $("<div>" +revArr[i] +"</div>");
     newDivRow.addClass("row alert alert-warning cityClick")
     newDivRow.attr("id","cityClick"+[i])
-    // newInput.val(usersArray[i])
     // console.log(usersArray[i])
-    // $(".citiesLi").remove(newDivRow)
     $(".citiesLi").append(newDivRow);
 
      }
     
-     $(document).on('click', '.cityClick', function(event) {
-        event.preventDefault();  
+    //  $(document).on('click', '.cityClick', function(event) {
+    //     event.preventDefault();  
     
-        city1 = $(this).text();
-        console.log(city1)
-        
+    //     city1 = $(this).text();
+    //     console.log(city1)
      
-     });
+    //  });
     
-//      $(document).on('click', '.cityClick', function(event) {
-//         event.preventDefault();  
-//     console.log("the on click function is working")
-//         console.log(".cityClick"+[i])
-//      var city2 = $(".cityClick"+[i]).text()
-//     console.log(city2)
-    
-// })
      
   // Here we run our AJAX call to the OpenWeatherMap API
   $.ajax({
@@ -191,5 +194,5 @@ $(document).on('click', '.searchBtn', function(event) {
 
     
     })
-})
+}
 
