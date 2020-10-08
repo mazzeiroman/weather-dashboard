@@ -8,7 +8,7 @@ var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 var yyyy = today.getFullYear();
 
 today = mm + '/' + dd + '/' + yyyy;
-console.log(today)
+// console.log(today)
 
 var usersArray = JSON.parse(localStorage.getItem("usersInput")) || [];
 
@@ -55,16 +55,23 @@ $(document).on('click', '.searchBtn', function(event) {
     var usersInput =city;
     
       console.log(usersArray);
-      usersArray.push(usersInput);
+
+      if(usersArray.indexOf(city) === -1){
+        console.log("The something variable is not in usersArray")
+        usersArray.push(usersInput);
+    }
+
+    //   usersArray.push(usersInput);
       localStorage.setItem('usersInput', JSON.stringify(usersArray));
   
      var revArr = usersArray.reverse();
      console.log(revArr);
-
-     // appending new 
+    
+     // appending new city to the DOM
      for (i=0; i< revArr.length; i++){
     var newDivRow = $("<div>" +revArr[i] +"</div>");
     newDivRow.addClass("row alert alert-warning")
+    // $(".col-md-4").remove(newDivRow)
     $(".col-md-4").append(newDivRow);
      }
     //  newDivRow.addClass("row alert alert-warning")
@@ -80,11 +87,11 @@ $(document).on('click', '.searchBtn', function(event) {
     .then(function(response) {
 
       // Log the queryURL
-      console.log(queryURL);
+    //   console.log(queryURL);
 
       // Log the resulting object
-      console.log(response);
-      console.log(response.weather[0].icon);
+    //   console.log(response);
+    //   console.log(response.weather[0].icon);
       var titleImg = response.weather[0].icon;
 
       // Convert the temp to fahrenheit
@@ -107,21 +114,21 @@ $(document).on('click', '.searchBtn', function(event) {
 
 
       // Log the data in the console as well
-      console.log("Wind Speed: " + response.wind.speed);
-      console.log("Humidity: " + response.main.humidity);
-      console.log("Temperature (F): " + tempF);
+    //   console.log("Wind Speed: " + response.wind.speed);
+    //   console.log("Humidity: " + response.main.humidity);
+    //   console.log("Temperature (F): " + tempF);
     
 
     var queryURLF = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&units=imperial&exclude=minutely,hourly,alerts&appid="+APIKey;
-      console.log(queryURLF)
+    //   console.log(queryURLF)
 
       $.ajax({
         url: queryURLF,
         method: "GET"
       })
       .then(function(responseF) {
-      console.log(responseF)
-      console.log(responseF.current.uvi)
+    //   console.log(responseF)
+    //   console.log(responseF.current.uvi)
       var uvEl =$("#uv").children("span");
       uvEl.text(" "+ responseF.current.uvi);
       uvEl.removeAttr("class")
@@ -143,9 +150,9 @@ $(document).on('click', '.searchBtn', function(event) {
     
     var unix = responseF.daily[i+1].dt;
     var date =new Date(unix * 1000);
-    console.log(date.toString().slice(4,15) )
+    // console.log(date.toString().slice(4,15) )
 
-    console.log(responseF.daily[i].weather[0].icon)
+    // console.log(responseF.daily[i].weather[0].icon)
     var daysIcon = responseF.daily[i].weather[0].icon;
     var temper = responseF.daily[i+1].temp.day
 
