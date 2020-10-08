@@ -16,6 +16,7 @@ var fiveDays = $(".fiveDays")
  fiveDays.addClass("row");
 
 
+console.log(city1)
 for (var i=0; i<5; i++){
 var newDivCol2 = $("<div>" + "</div>");
 //col-md-2 inside newDivCol2.addClass("card text-white bg-primary mb-3");
@@ -49,7 +50,8 @@ newDivIcon.attr("id","icon"+[i+1])
 $(document).on('click', '.searchBtn', function(event) {
     event.preventDefault();  
   
-   var city = $("input").val();
+   var city = $("input").val() || city1;
+   console.log(city)
     var queryURL ="https://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=" + APIKey; 
 
     var usersInput =city;
@@ -66,14 +68,17 @@ $(document).on('click', '.searchBtn', function(event) {
   
      var revArr = usersArray.reverse();
      console.log(revArr);
-    
+
 
      $(".citiesLi").empty()
+     var newInput = $(".lastCity")
      // appending new city to the DOM
      for (i=0; i< revArr.length; i++){
     var newDivRow = $("<div>" +revArr[i] +"</div>");
     newDivRow.addClass("row alert alert-warning cityClick")
     newDivRow.attr("id","cityClick"+[i])
+    newInput.val(usersArray[i])
+    console.log(usersArray[i])
     // $(".citiesLi").remove(newDivRow)
     $(".citiesLi").append(newDivRow);
 
@@ -82,12 +87,8 @@ $(document).on('click', '.searchBtn', function(event) {
      $(document).on('click', '.cityClick', function(event) {
         event.preventDefault();  
     
-        city = $(this).text();
-      
-       return(city);
-        // console.log($(col1).val());
-        // console.log(usersArray)
-       
+        city1 = $(this).text();
+        console.log(city1)
      
      });
     
