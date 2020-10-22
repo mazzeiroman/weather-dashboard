@@ -51,11 +51,12 @@ newDivIcon.attr("id","icon"+[i+1])
 if(lastCity){
     searchWeather(lastCity)
     }
-$(document).on("load",function(event) {
-    event.preventDefault(); 
-    var cityName = usersArray[0];
-    searchWeather(cityName)
-})
+
+// $(document).on("load",function(event) {
+//     event.preventDefault(); 
+//     var cityName = usersArray[0];
+//     searchWeather(cityName)
+// })
 
 $(document).on('click', '.searchBtn', function(event) {
     event.preventDefault(); 
@@ -204,4 +205,9 @@ $(document).on('click', '.cityClick', function(event) {
     
     })
 }
+
+$(".clearBtn").on("click", function(){
+  localStorage.clear();
+  $(".citiesLi").empty()
+})
 
